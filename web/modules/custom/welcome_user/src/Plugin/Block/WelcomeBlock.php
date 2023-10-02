@@ -1,12 +1,10 @@
 <?php
 
-namespace Drupal\beta_onboarding\Plugin\Block;
+namespace Drupal\welcome_user\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Plugin\Factory\ContainerFactory;
-use League\Container\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,20 +15,33 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   admin_label = @Translation("Some sort of Block for welcoming the user"),
  *   category = @Translation("Description for this block"),
  *   cache_contexts = {
- *     "cache.context.config:beta_onboarding.settings"
+ *     "cache.context.config:welcome_user.settings"
  *   }
  * )
  */
-class SomeSortBlock extends BlockBase implements ContainerFactoryPluginInterface{
+class WelcomeBlock extends BlockBase implements ContainerFactoryPluginInterface{
   /// Why deleting implements ContainerFactoryPluginInterface breaks the code?
-  protected ConfigFactoryInterface $alaki;
-  function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $sth)
-  {
 
-    $this->alaki = $sth;
+  /**
+   * @var ConfigFactoryInterface
+   */
+  protected ConfigFactoryInterface $configDI;
+
+  /**
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param ConfigFactoryInterface $config_factory_interface
+   */
+  function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory_interface)
+  {
+    $this->configDI = $config_factory_interface;
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration, $plugin_id, $plugin_definition,
@@ -38,19 +49,14 @@ class SomeSortBlock extends BlockBase implements ContainerFactoryPluginInterface
     );
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function build() {
-  $cache_tags = \Drupal::config('beta_onboarding.settings')->getCacheTags();
-  echo($this->alaki->get("beta_onboarding.settings")->get("welcome_message"));
-  var_dump($cache_tags);
-
     return [
-      '#markup' => $this->t(\Drupal::config("beta_onboarding.settings")->get("welcome_message")),
+      '#markup' => $this->t(\Drupal::config("welcome_user.settings")->get("welcome_message")),
       '#cache' => [
-        'tags'=> $cache_tags,
+        'tags'=> $this->configDI->get('welcome_user.settings')->getCacheTags(),
       ],
     ];
   }

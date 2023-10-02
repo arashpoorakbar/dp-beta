@@ -1,6 +1,0 @@
-name: some block
-type: module
-description: only a block for testing
-package: beta onboarding module package
-core_version_requirement: ^10
-

@@ -1,0 +1,5 @@
+type: module
+name: welcome user module
+package: custom
+description: "This module is created for demonstration purposes"
+core_version_requirement: ^10

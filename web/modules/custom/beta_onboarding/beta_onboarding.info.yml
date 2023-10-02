@@ -1,5 +1,0 @@
-type: module
-name: beta onbording module
-package: custom
-description: "This module is created for demonstration  purposes for onboarding devs into BETA team"
-core_version_requirement: ^10

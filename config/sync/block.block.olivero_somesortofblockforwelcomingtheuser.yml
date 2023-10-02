@@ -1,0 +1,20 @@
+uuid: 34ac8838-f95e-435c-bbdd-d1b51223a7ac
+langcode: en
+status: true
+dependencies:
+  module:
+    - welcome_user
+  theme:
+    - olivero
+id: olivero_somesortofblockforwelcomingtheuser
+theme: olivero
+region: header
+weight: 0
+provider: null
+plugin: welcome_block
+settings:
+  id: welcome_block
+  label: 'Some sort of Block for welcoming the user'
+  label_display: visible
+  provider: welcome_user
+visibility: {  }
