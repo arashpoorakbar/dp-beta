@@ -1,0 +1,9 @@
+beta_onboarding.admin_form:
+  path: '/admin/config/my_module/settings'
+  defaults:
+    _form: 'Drupal\beta_onboarding\Form\BetaOnboardingAdminForm'
+    _title: 'some admin form for testing'
+  requirements:
+    _permission: 'administer site configuration'
+
+

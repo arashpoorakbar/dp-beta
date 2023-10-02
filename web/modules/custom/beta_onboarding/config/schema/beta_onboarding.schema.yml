@@ -1,0 +1,9 @@
+beta_onboarding.settings:
+  type: config_object
+  label: "beta onboarding module admin config"
+  mapping:
+    welcome_message:
+      type: string
+      label: "welcome message"
+
+
